@@ -18,15 +18,12 @@ public final class MaiMaiOpeningSongGame extends JavaPlugin {
     @SuppressWarnings("all")
     public static final MaiMaiOpeningSongGame INSTANCE = new MaiMaiOpeningSongGame();
 
-    public Function<String, File> fileSupplier = new Function<String, File>() {
-        @Override
-        public File apply(String s) {
-            Path a = INSTANCE.getDataFolderPath();
-            for (String sub : s.split("/")) {
-                a = a.resolve(sub);
-            }
-            return a.toFile();
+    public Function<String, File> fileSupplier = s -> {
+        Path a = INSTANCE.getDataFolderPath();
+        for (String sub : s.split("/")) {
+            a = a.resolve(sub);
         }
+        return a.toFile();
     };
 
     private MaiMaiOpeningSongGame() {

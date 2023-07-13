@@ -3,13 +3,14 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.8.10'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.10'
 
-    id 'net.mamoe.mirai-console' version '2.15.0'
+    id 'net.mamoe.mirai-console' version '2.15.0-dev-105'
 }
 
 group = 'com.kagg886'
 version = '0.1.0'
 
 repositories {
+    maven { url 'https://repo.mirai.mamoe.net/snapshots' }
     maven { url 'https://maven.aliyun.com/repository/public' }
     mavenCentral()
 }
