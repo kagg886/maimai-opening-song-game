@@ -4,6 +4,7 @@ import com.kagg886.maimai_game.Config;
 import com.kagg886.maimai_game.GroupListener;
 import com.kagg886.maimai_game.service.SongManager;
 import com.kagg886.util.IOUtil;
+import com.kagg___.maimai_opening_song_name.BuildConfig;
 import net.mamoe.mirai.console.command.CommandManager;
 import net.mamoe.mirai.console.plugin.jvm.JavaPlugin;
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescriptionBuilder;
@@ -29,7 +30,7 @@ public final class MaiMaiOpeningSongGame extends JavaPlugin {
     };
 
     private MaiMaiOpeningSongGame() {
-        super(new JvmPluginDescriptionBuilder("com.kagg886.MaiMaiOpeningSongGame", "0.1.0")
+        super(new JvmPluginDescriptionBuilder("com.kagg886.MaiMaiOpeningSongGame", BuildConfig.VERSION_NAME)
                 .name("MaiMaiOpeningSongGame")
                 .author("kagg886")
                 .info("maimai开曲名bot")

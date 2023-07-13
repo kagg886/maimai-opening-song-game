@@ -4,10 +4,12 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.10'
 
     id 'net.mamoe.mirai-console' version '2.15.0-dev-105'
+
+    id 'com.github.gmazzo.buildconfig' version '4.1.1'
 }
 
 group = 'com.kagg886'
-version = '0.1.0'
+version = '0.1.1'
 
 repositories {
     maven { url 'https://repo.mirai.mamoe.net/snapshots' }
@@ -19,6 +21,9 @@ mirai {
     jvmTarget JavaVersion.VERSION_16
 }
 
+buildConfig {
+    buildConfigField('String', 'VERSION_NAME', "\"${project.version}\"")
+}
 
 dependencies {
     implementation 'com.alibaba.fastjson2:fastjson2:2.0.35'
