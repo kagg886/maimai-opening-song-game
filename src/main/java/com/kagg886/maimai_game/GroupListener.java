@@ -28,7 +28,7 @@ public class GroupListener implements Consumer<GroupMessageEvent> {
         String command = event.getMessage().contentToString();
         NormalMember sender = ((NormalMember) event.getSender());
 
-        if (command.startsWith("回答 ")) {
+        if (command.startsWith("回答")) {
             try {
                 GameProgress progress = GameManager.getInstance().findGameByGroup(event.getGroup());
                 String[] str = command.split(" ", 2);
@@ -86,7 +86,7 @@ public class GroupListener implements Consumer<GroupMessageEvent> {
             }
         }
 
-        if (command.startsWith("开字母 ")) {
+        if (command.startsWith("开字母")) {
             try {
                 GameProgress progress = GameManager.getInstance().findGameByGroup(event.getGroup());
 

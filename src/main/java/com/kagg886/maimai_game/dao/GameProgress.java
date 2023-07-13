@@ -49,7 +49,7 @@ public class GameProgress {
     }
 
     public List<Map.Entry<NormalMember, Integer>> getRanks() {
-        return ranks.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getValue)).toList();
+        return ranks.entrySet().stream().sorted((a,b) -> b.getValue() - a.getValue()).toList();
     }
 
     public void answerRank(NormalMember member) {
