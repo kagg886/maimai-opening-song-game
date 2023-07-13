@@ -53,6 +53,7 @@ public class GameManager {
                     wantToDelete.add(progress);
                     break;
                 }
+                throw new IllegalStateException("权限不足，无法关闭游戏!");
             }
         }
         if (wantToDelete.size() != 0) {

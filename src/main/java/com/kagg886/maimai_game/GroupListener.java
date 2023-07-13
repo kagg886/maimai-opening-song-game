@@ -114,12 +114,11 @@ public class GroupListener implements Consumer<GroupMessageEvent> {
 
         if (command.equals("公布答案")) {
             try {
+                GameManager.getInstance().exitGame(sender);
                 GameProgress progress = GameManager.getInstance().findGameByGroup(event.getGroup());
                 StringBuilder builder = new StringBuilder();
                 progress.getAnswers().forEach((a) -> builder.append(a.getName()).append("\n"));
                 event.getGroup().sendMessage("操作完成~\n答案如下:\n" + builder);
-
-                GameManager.getInstance().exitGame(sender);
             } catch (IllegalStateException e) {
                 event.getGroup().sendMessage(e.getMessage());
             }

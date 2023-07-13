@@ -35,9 +35,7 @@ public class GameProgress {
     }
 
     public List<SongInfo> getAnswers() {
-        List<SongInfo> infos = songs.keySet().stream().toList();
-        known = infos;
-        return infos;
+        return songs.keySet().stream().toList();
     }
 
     public void updateAllowDisplayChar(char c) {
@@ -66,12 +64,18 @@ public class GameProgress {
         throw new IllegalStateException("本歌曲不在题目列表中哦~");
     }
 
-    public boolean isAllComplete() {
-        return songs.size() <= known.size();
+    public boolean isAllComplete() { //已知曲目中包含所有题目曲
+        return new HashSet<>(known).containsAll(songs.keySet());
     }
 
     public void lazyInit() {
-        List<SongInfo> infos = SongManager.getInstance().random(Config.INSTANCE.getQuestionCount());
+        int count = 5;
+        try {
+            count = Config.INSTANCE.getQuestionCount();
+        } catch (NoClassDefFoundError ignored) {
+            //mock时此代码加载失败，此时证明为调试环境，可适当减少count值
+        }
+        List<SongInfo> infos = SongManager.getInstance().random(count);
         for (SongInfo info : infos) {
             List<Character> characters = new ArrayList<>();
             for (char c : info.getName().toCharArray()) {

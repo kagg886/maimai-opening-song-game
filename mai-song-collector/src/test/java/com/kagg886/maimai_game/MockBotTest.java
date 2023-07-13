@@ -56,7 +56,7 @@ public class MockBotTest {
         while (!progress.isAllComplete()) {
             member2.says("开字母 " + (char) (new Random().nextInt(25) + 'A'));
             Thread.sleep(1000);
-            member3.says("开子母 " + (char) (new Random().nextInt(25) + 'A'));
+            member3.says("开字母 " + (char) (new Random().nextInt(25) + 'A'));
             Thread.sleep(1000);
 
             if (Math.random() > 0.5) {
