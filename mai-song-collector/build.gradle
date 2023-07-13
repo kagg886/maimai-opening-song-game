@@ -1,0 +1,28 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.kagg886'
+version = '0.1.0'
+
+repositories {
+    mavenCentral()
+}
+
+test {
+    useJUnitPlatform()
+}
+
+dependencies {
+    implementation project(path: ':')
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    implementation 'com.alibaba.fastjson2:fastjson2:2.0.35'
+    implementation 'org.jsoup:jsoup:1.15.3'
+
+    testImplementation 'net.mamoe:mirai-core-api-jvm:2.15.0'
+
+    testImplementation 'net.mamoe:mirai-core-mock:2.15.0'
+}
