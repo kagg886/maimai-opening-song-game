@@ -40,7 +40,7 @@ public class GameManager {
 
     public void exitGame(NormalMember member) {
         GameProgress progress0 = findGameByGroup(member.getGroup());
-        if (progress0.isAllComplete()) {
+        if (progress0.isAllComplete()) { //游戏结束后任何人都可以结束游戏
             progresses.remove(progress0);
             return;
         }

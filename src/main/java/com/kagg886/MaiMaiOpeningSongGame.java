@@ -4,6 +4,7 @@ import com.kagg886.maimai_game.Config;
 import com.kagg886.maimai_game.GroupListener;
 import com.kagg886.maimai_game.service.SongManager;
 import com.kagg886.util.IOUtil;
+import net.mamoe.mirai.console.command.CommandManager;
 import net.mamoe.mirai.console.plugin.jvm.JavaPlugin;
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescriptionBuilder;
 import net.mamoe.mirai.event.GlobalEventChannel;
@@ -39,8 +40,13 @@ public final class MaiMaiOpeningSongGame extends JavaPlugin {
     @Override
     public void onEnable() {
         reloadPluginConfig(Config.INSTANCE);
+        CommandManager.INSTANCE.registerCommand(CommandInstance.INSTANCE,false);
+        loadSongConfig();
+        getLogger().info("配置文件已加载" + SongManager.getInstance().count() + "首歌曲");
+        GlobalEventChannel.INSTANCE.parentScope(this).subscribeAlways(GroupMessageEvent.class, GroupListener.getInstance());
+    }
 
-
+    public void loadSongConfig() {
         File song = fileSupplier.apply("songs.json");
         try {
             String s = IOUtil.loadStringFromFile(song);
@@ -55,10 +61,7 @@ public final class MaiMaiOpeningSongGame extends JavaPlugin {
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
-            onEnable();
-            return;
+            loadSongConfig();
         }
-        getLogger().info("配置文件已加载" + SongManager.getInstance().count() + "首歌曲");
-        GlobalEventChannel.INSTANCE.parentScope(this).subscribeAlways(GroupMessageEvent.class, GroupListener.getInstance());
     }
 }
