@@ -123,7 +123,7 @@ src/test/kotlin/RunTerminal.kt
 
 # Mirai console files with direct bootstrap
 /config
-/data
+/song-data
 /plugins
 /bots
 

@@ -19,6 +19,10 @@ public class SongManager {
 
     private static final Random r = new Random();
 
+    public int count() {
+        return allSongs.size();
+    }
+
     public SongInfo findSongById(int id) {
         return allSongs.stream().filter(songInfo -> songInfo.getId() == id).findFirst().orElse(null);
     }
