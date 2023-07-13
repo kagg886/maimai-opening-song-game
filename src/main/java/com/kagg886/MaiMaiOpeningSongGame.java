@@ -1,5 +1,6 @@
 package com.kagg886;
 
+import com.kagg886.maimai_game.Config;
 import com.kagg886.maimai_game.GroupListener;
 import com.kagg886.maimai_game.service.SongManager;
 import com.kagg886.util.IOUtil;
@@ -34,8 +35,12 @@ public final class MaiMaiOpeningSongGame extends JavaPlugin {
                 .build());
     }
 
+
     @Override
     public void onEnable() {
+        reloadPluginConfig(Config.INSTANCE);
+
+
         File song = fileSupplier.apply("songs.json");
         try {
             String s = IOUtil.loadStringFromFile(song);

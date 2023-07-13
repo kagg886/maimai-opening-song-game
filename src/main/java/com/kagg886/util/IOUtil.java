@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.ByteBuffer;
 import java.nio.channels.Channels;
 import java.nio.channels.ReadableByteChannel;
+import java.nio.charset.StandardCharsets;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -137,7 +138,7 @@ public class IOUtil {
     }
 
     public static String loadStringFromFile(File file) throws IOException {
-        return new String(loadByteFromFile(file));
+        return new String(loadByteFromFile(file),StandardCharsets.UTF_8);
     }
 
 
@@ -158,6 +159,6 @@ public class IOUtil {
     }
 
     public static void writeStringToFile(File file, String content) throws IOException {
-        writeByteToFile(file, content.getBytes());
+        writeByteToFile(file, content.getBytes(StandardCharsets.UTF_8));
     }
 }

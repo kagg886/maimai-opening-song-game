@@ -31,7 +31,7 @@ public class GroupListener implements Consumer<GroupMessageEvent> {
         if (command.startsWith("回答 ")) {
             try {
                 GameProgress progress = GameManager.getInstance().findGameByGroup(event.getGroup());
-                String[] str = command.split(" ",2);
+                String[] str = command.split(" ", 2);
                 if (str.length != 2) {
                     event.getGroup().sendMessage("格式错误!\n正确的格式为:回答 字母/数字/标点符号/日文\n例如:回答 QZKago Requiem/回答 茄子卡狗/回答 653");
                     return;
@@ -65,7 +65,7 @@ public class GroupListener implements Consumer<GroupMessageEvent> {
                         if (progress.isAllComplete()) {
                             MessageChainBuilder builder1 = new MessageChainBuilder();
                             builder1.append("游戏结束!现在是，结算时间~");
-                            List<Map.Entry<NormalMember,Integer>> list = progress.getRanks();
+                            List<Map.Entry<NormalMember, Integer>> list = progress.getRanks();
                             list.forEach((a) -> {
                                 builder1.append(new At(a.getKey().getId()));
                                 builder1.append("---");
@@ -77,7 +77,8 @@ public class GroupListener implements Consumer<GroupMessageEvent> {
                             GameManager.getInstance().exitGame(sender);
                         }
                         return;
-                    } catch (IllegalStateException ignored) {}
+                    } catch (IllegalStateException ignored) {
+                    }
                 }
                 throw new IllegalStateException("这个曲目不在题目列表哦,加油~");
             } catch (IllegalStateException e) {
@@ -85,11 +86,11 @@ public class GroupListener implements Consumer<GroupMessageEvent> {
             }
         }
 
-        if (command.startsWith("开子母 ")) {
+        if (command.startsWith("开字母 ")) {
             try {
                 GameProgress progress = GameManager.getInstance().findGameByGroup(event.getGroup());
 
-                String[] str = command.split(" ",2);
+                String[] str = command.split(" ", 2);
                 if (str.length != 2) {
                     event.getGroup().sendMessage("格式错误!\n正确的格式为:开子母 字母\n例如:开子母 a");
                     return;
@@ -109,6 +110,19 @@ public class GroupListener implements Consumer<GroupMessageEvent> {
                 event.getGroup().sendMessage(e.getMessage());
             }
 
+        }
+
+        if (command.equals("公布答案")) {
+            try {
+                GameProgress progress = GameManager.getInstance().findGameByGroup(event.getGroup());
+                StringBuilder builder = new StringBuilder();
+                progress.getAnswers().forEach((a) -> builder.append(a.getName()).append("\n"));
+                event.getGroup().sendMessage("操作完成~\n答案如下:\n" + builder);
+
+                GameManager.getInstance().exitGame(sender);
+            } catch (IllegalStateException e) {
+                event.getGroup().sendMessage(e.getMessage());
+            }
         }
 
         if (command.startsWith("舞萌开字母")) {

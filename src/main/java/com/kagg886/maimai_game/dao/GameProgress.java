@@ -1,5 +1,6 @@
 package com.kagg886.maimai_game.dao;
 
+import com.kagg886.maimai_game.Config;
 import com.kagg886.maimai_game.service.SongManager;
 import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.NormalMember;
@@ -20,7 +21,7 @@ public class GameProgress {
 
     private final List<Character> allowDisplayChars; //允许显示的字符
 
-    private final List<SongInfo> known; //已经知道的曲目
+    private List<SongInfo> known; //已经知道的曲目
 
     private final HashMap<NormalMember, Integer> ranks; //排名
 
@@ -34,7 +35,9 @@ public class GameProgress {
     }
 
     public List<SongInfo> getAnswers() {
-        return songs.keySet().stream().toList();
+        List<SongInfo> infos = songs.keySet().stream().toList();
+        known = infos;
+        return infos;
     }
 
     public void updateAllowDisplayChar(char c) {
@@ -45,9 +48,10 @@ public class GameProgress {
         return allowDisplayChars;
     }
 
-    public List<Map.Entry<NormalMember,Integer>> getRanks() {
+    public List<Map.Entry<NormalMember, Integer>> getRanks() {
         return ranks.entrySet().stream().sorted(Comparator.comparingInt(Map.Entry::getValue)).toList();
     }
+
     public void answerRank(NormalMember member) {
         ranks.put(member, ranks.getOrDefault(member, 0) + 1);
     }
@@ -63,13 +67,11 @@ public class GameProgress {
     }
 
     public boolean isAllComplete() {
-        System.out.println(known.size());
-        System.out.println(songs.size());
-        return songs.size() <=  known.size();
+        return songs.size() <= known.size();
     }
 
     public void lazyInit() {
-        List<SongInfo> infos = SongManager.getInstance().random(15);
+        List<SongInfo> infos = SongManager.getInstance().random(Config.INSTANCE.getQuestionCount());
         for (SongInfo info : infos) {
             List<Character> characters = new ArrayList<>();
             for (char c : info.getName().toCharArray()) {
