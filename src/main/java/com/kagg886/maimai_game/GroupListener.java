@@ -64,14 +64,15 @@ public class GroupListener implements Consumer<GroupMessageEvent> {
 
                         if (progress.isAllComplete()) {
                             MessageChainBuilder builder1 = new MessageChainBuilder();
-                            builder1.append("游戏结束!现在是，结算时间~\n");
+                            builder1.append("游戏结束!现在是，结算时间~\n名次,分数,成员\n");
                             List<Map.Entry<NormalMember, Integer>> list = progress.getRanks();
-                            list.forEach((a) -> {
+                            int index = 1;
+                            for (Map.Entry<NormalMember, Integer> a : list) {
+                                builder1.append(String.format("%d,%d(%d),", index, a.getValue(), a.getValue()));
                                 builder1.append(new At(a.getKey().getId()));
-                                builder1.append("---");
-                                builder1.append(String.valueOf(a.getValue()));
                                 builder1.append("\n");
-                            });
+                                index++;
+                            }
                             event.getGroup().sendMessage(builder1.build());
 
                             GameManager.getInstance().exitGame(sender);

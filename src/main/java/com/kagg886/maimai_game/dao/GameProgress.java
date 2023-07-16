@@ -77,7 +77,9 @@ public class GameProgress {
     }
 
     public void answerRank(NormalMember member) {
-        ranks.put(member, ranks.getOrDefault(member, 0) + 1);
+        Integer rank = ranks.getOrDefault(member,0);
+        ranks.put(member,rank+1);
+
     }
 
     public void updateKnown(SongInfo info) {
@@ -121,7 +123,7 @@ public class GameProgress {
             List<Character> songChar = entry.getValue();
             SongInfo song = entry.getKey();
             if (known.contains(song)) {
-                result.add(song.getName());
+                result.add("[√]:" + song.getName());
                 continue;
             }
 
@@ -139,7 +141,7 @@ public class GameProgress {
             for (int i = 0; i < r.length; i++) {
                 r[i] = encrypt.get(i);
             }
-            result.add(new String(r));
+            result.add("[x]:" + new String(r));
         }
         return result;
     }

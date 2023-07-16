@@ -59,11 +59,11 @@ public class MockBotTest {
             member3.says("开字母 " + (char) (new Random().nextInt(25) + base));
             Thread.sleep(1000);
 
-//            if (Math.random() > 0.5) {
-//                member4.says("回答 " + infos.get(index++).getName());
-//            } else {
-//                member4.says("回答 " + SongManager.getInstance().random(1).get(0).getName());
-//            }
+            if (Math.random() > 0.5) {
+                member4.says("回答 " + infos.get(index++).getName());
+            } else {
+                member4.says("回答 " + SongManager.getInstance().random(1).get(0).getName());
+            }
         }
     }
 }
