@@ -59,12 +59,12 @@ public class GroupListener implements Consumer<GroupMessageEvent> {
                         StringBuilder builder = new StringBuilder();
                         progress.getDisplayString().forEach((a) -> builder.append(a).append("\n"));
                         progress.answerRank(sender);
-                        event.getGroup().sendMessage("恭喜猜中曲目♪(･ω･)ﾉ~\n已开出字母:" + progress.getAllowDisplayChars() + "\n题目列表" + builder);
+                        event.getGroup().sendMessage("恭喜猜中曲目♪(･ω･)ﾉ~\n已开出字母:" + progress.getAllowDisplayChars() + "\n题目列表\n" + builder);
 
 
                         if (progress.isAllComplete()) {
                             MessageChainBuilder builder1 = new MessageChainBuilder();
-                            builder1.append("游戏结束!现在是，结算时间~");
+                            builder1.append("游戏结束!现在是，结算时间~\n");
                             List<Map.Entry<NormalMember, Integer>> list = progress.getRanks();
                             list.forEach((a) -> {
                                 builder1.append(new At(a.getKey().getId()));

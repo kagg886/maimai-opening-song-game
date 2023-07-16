@@ -21,14 +21,37 @@ public class GameProgress {
 
     private final List<Character> allowDisplayChars; //允许显示的字符
 
-    private List<SongInfo> known; //已经知道的曲目
+    private final List<SongInfo> known; //已经知道的曲目
 
     private final HashMap<NormalMember, Integer> ranks; //排名
 
     public GameProgress(Group group, NormalMember owner) {
         this.group = group;
         this.owner = owner;
-        allowDisplayChars = new ArrayList<>();
+        allowDisplayChars = new ArrayList<>() {
+            @Override
+            public boolean contains(Object o) {
+                if (o instanceof Character c) {
+                    if (c > 'a' && c < 'z') { //忽略大小写
+                        return super.contains(c) || stream().anyMatch(v -> v == c - 32);
+                    }
+
+                    if (c > 'A' && c < 'Z') {
+                        return super.contains(c) || stream().anyMatch(v -> v == c + 32);
+                    }
+
+                    if (c > 65281 && c < 65374) { //忽略全半角
+                        return super.contains(c) || stream().anyMatch(v -> v == c - 65248);
+                    }
+
+                    if (c > 33 && c < 126) {
+                        return super.contains(c) || stream().anyMatch(v -> v == c + 65248);
+                    }
+                    return super.contains(c);
+                }
+                return super.contains(o);
+            }
+        };
         songs = new HashMap<>();
         known = new ArrayList<>();
         ranks = new HashMap<>();
@@ -39,6 +62,9 @@ public class GameProgress {
     }
 
     public void updateAllowDisplayChar(char c) {
+        if (allowDisplayChars.contains(c)) {
+            throw new IllegalStateException("该字母已经被拆过惹!");
+        }
         allowDisplayChars.add(c);
     }
 
@@ -47,7 +73,7 @@ public class GameProgress {
     }
 
     public List<Map.Entry<NormalMember, Integer>> getRanks() {
-        return ranks.entrySet().stream().sorted((a,b) -> b.getValue() - a.getValue()).toList();
+        return ranks.entrySet().stream().sorted((a, b) -> b.getValue() - a.getValue()).toList();
     }
 
     public void answerRank(NormalMember member) {
@@ -100,10 +126,12 @@ public class GameProgress {
             }
 
             List<Character> encrypt = songChar.stream().map(charSequence -> {
+
                 if (!allowDisplayChars.contains(charSequence) && charSequence != ' ') {
                     //该字符不在可显示列表内且不为空格返回?，否则返回原字符
                     return '?';
                 }
+
                 return charSequence;
             }).toList();
 

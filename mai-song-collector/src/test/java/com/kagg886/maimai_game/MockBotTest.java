@@ -22,7 +22,7 @@ import java.util.Random;
  **/
 public class MockBotTest {
 
-    private static MockMember member1, member2, member3,member4;
+    private static MockMember member1, member2, member3, member4;
 
     private static MockGroup group;
 
@@ -33,14 +33,14 @@ public class MockBotTest {
 
         MockBot bot = MockBotFactory.Companion.newMockBotBuilder().id(1693256674).create();
         bot.login();
-        bot.getEventChannel().subscribeAlways(GroupMessageEvent.class,GroupListener.getInstance());
+        bot.getEventChannel().subscribeAlways(GroupMessageEvent.class, GroupListener.getInstance());
 
         group = bot.addGroup(114514, "测试群");
 
         member1 = group.addMember(1, "1");
         member2 = group.addMember(2, "2");
         member3 = group.addMember(3, "3");
-        member4 = group.addMember(4,"4");
+        member4 = group.addMember(4, "4");
     }
 
     @SuppressWarnings("all")
@@ -48,22 +48,22 @@ public class MockBotTest {
     void joinGame() throws InterruptedException {
         member1.says("舞萌开字母");
         Thread.sleep(1000);
-
-
         GameProgress progress = GameManager.getInstance().findGameByGroup(group);
         List<SongInfo> infos = progress.getAnswers();
         int index = 0;
         while (!progress.isAllComplete()) {
-            member2.says("开字母 " + (char) (new Random().nextInt(25) + 'A'));
+            int base = Math.random() > 0.5 ? 'a' : 'A';
+
+            member2.says("开字母 " + (char) (new Random().nextInt(25) + base));
             Thread.sleep(1000);
-            member3.says("开字母 " + (char) (new Random().nextInt(25) + 'A'));
+            member3.says("开字母 " + (char) (new Random().nextInt(25) + base));
             Thread.sleep(1000);
 
-            if (Math.random() > 0.5) {
-                member4.says("回答 " + infos.get(index++).getName());
-            } else {
-                member4.says("回答 " + SongManager.getInstance().random(1).get(0).getName());
-            }
+//            if (Math.random() > 0.5) {
+//                member4.says("回答 " + infos.get(index++).getName());
+//            } else {
+//                member4.says("回答 " + SongManager.getInstance().random(1).get(0).getName());
+//            }
         }
     }
 }
