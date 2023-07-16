@@ -132,7 +132,7 @@ public class GroupListener implements Consumer<GroupMessageEvent> {
                 progress.lazyInit();
                 StringBuilder builder = new StringBuilder();
                 progress.getDisplayString().forEach((a) -> builder.append(a).append("\n"));
-                event.getGroup().sendMessage("游戏已开始!,本次题目如下:\n" + builder + "\n开字母请发送:开子母 字母/数字/标点符号/日文\n回答曲目请发送:回答 id/曲名/别名\n玩的愉快~");
+                event.getGroup().sendMessage("游戏已开始!,本次题目如下:\n" + builder + "\n开字母请发送:开字母 字母/数字/标点符号/日文\n回答曲目请发送:回答 id/曲名/别名\n玩的愉快~");
             } catch (IllegalStateException e) {
                 event.getGroup().sendMessage(e.getMessage());
             }
