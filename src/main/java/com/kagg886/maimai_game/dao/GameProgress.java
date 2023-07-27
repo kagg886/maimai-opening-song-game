@@ -6,6 +6,7 @@ import net.mamoe.mirai.contact.Group;
 import net.mamoe.mirai.contact.NormalMember;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 代表了一个群的游戏进度
@@ -31,7 +32,8 @@ public class GameProgress {
         allowDisplayChars = new ArrayList<>() {
             @Override
             public boolean contains(Object o) {
-                if (o instanceof Character c) {
+                if (o instanceof Character) {
+                    char c = (Character) o;
                     if (c > 'a' && c < 'z') { //忽略大小写
                         return super.contains(c) || stream().anyMatch(v -> v == c - 32);
                     }
@@ -58,7 +60,7 @@ public class GameProgress {
     }
 
     public List<SongInfo> getAnswers() {
-        return songs.keySet().stream().toList();
+        return new ArrayList<>(songs.keySet());
     }
 
     public void updateAllowDisplayChar(char c) {
@@ -73,7 +75,7 @@ public class GameProgress {
     }
 
     public List<Map.Entry<NormalMember, Integer>> getRanks() {
-        return ranks.entrySet().stream().sorted((a, b) -> b.getValue() - a.getValue()).toList();
+        return ranks.entrySet().stream().sorted((a, b) -> b.getValue() - a.getValue()).collect(Collectors.toList());
     }
 
     public void answerRank(NormalMember member) {
@@ -83,6 +85,9 @@ public class GameProgress {
     }
 
     public void updateKnown(SongInfo info) {
+        if (known.contains(info)) {
+            throw new IllegalStateException("这个曲目已经有人作答了喵~");
+        }
         for (Map.Entry<SongInfo, List<Character>> entry : songs.entrySet()) {
             if (entry.getKey() == info) {
                 known.add(info);
@@ -135,7 +140,7 @@ public class GameProgress {
                 }
 
                 return charSequence;
-            }).toList();
+            }).collect(Collectors.toList());
 
             char[] r = new char[encrypt.size()];
             for (int i = 0; i < r.length; i++) {

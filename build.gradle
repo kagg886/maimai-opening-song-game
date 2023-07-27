@@ -18,7 +18,7 @@ repositories {
 }
 
 mirai {
-    jvmTarget JavaVersion.VERSION_16
+    jvmTarget JavaVersion.VERSION_11
 }
 
 buildConfig {

@@ -6,6 +6,7 @@ import com.kagg886.maimai_game.dao.SongInfo;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * 记载了所有已加载的歌曲
@@ -32,7 +33,7 @@ public class SongManager {
     }
 
     public List<SongInfo> findSongsByAlias(String alias) {
-        return allSongs.stream().filter(songInfo -> songInfo.getAlias().contains(alias)).toList();
+        return allSongs.stream().filter(songInfo -> songInfo.getAlias().contains(alias)).collect(Collectors.toList());
     }
 
     public List<SongInfo> random(int num) {

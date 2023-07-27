@@ -8,6 +8,7 @@ import net.mamoe.mirai.contact.NormalMember;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 管理游戏的启停
@@ -21,7 +22,7 @@ public class GameManager {
     private final List<GameProgress> progresses = Collections.synchronizedList(new ArrayList<>()); //存储所有的游戏实例
 
     public GameProgress joinGame(NormalMember owner) {
-        boolean isJoined = progresses.stream().map(GameProgress::getGroup).map(Group::getId).toList().contains(owner.getGroup().getId());
+        boolean isJoined = progresses.stream().map(GameProgress::getGroup).map(Group::getId).collect(Collectors.toList()).contains(owner.getGroup().getId());
         if (isJoined) {
             throw new IllegalStateException("本群已经存在一个开曲名游戏，请完成当前游戏，或寻找发起人/群管理员以停止先前的游戏");
         }
@@ -31,7 +32,7 @@ public class GameManager {
     }
 
     public GameProgress findGameByGroup(Group group) {
-        List<GameProgress> progresses1 = progresses.stream().filter(gameProgress -> gameProgress.getGroup().getId() == group.getId()).toList();
+        List<GameProgress> progresses1 = progresses.stream().filter(gameProgress -> gameProgress.getGroup().getId() == group.getId()).collect(Collectors.toList());
         if (progresses1.size() == 0) {
             throw new IllegalStateException("本群未开始开字母游戏!");
         }
