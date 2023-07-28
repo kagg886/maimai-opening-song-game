@@ -13,7 +13,7 @@ public class SongManagerTest {
 
     @BeforeAll
     public static void LoadAllSongs() {
-        File base = new File("mai-data-no-jp.json");
+        File base = new File("mai-data-test.json");
         System.out.println(base.getAbsolutePath());
         Assertions.assertDoesNotThrow(() -> SongManager.getInstance().loadAllSongs(IOUtil.loadStringFromFile(base)));
         Assertions.assertNotEquals(SongManager.getInstance().allSongs.size(), 0);

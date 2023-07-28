@@ -34,19 +34,19 @@ public class GameProgress {
             public boolean contains(Object o) {
                 if (o instanceof Character) {
                     char c = (Character) o;
-                    if (c > 'a' && c < 'z') { //忽略大小写
+                    if (c >= 'a' && c <= 'z') { //忽略大小写
                         return super.contains(c) || stream().anyMatch(v -> v == c - 32);
                     }
 
-                    if (c > 'A' && c < 'Z') {
+                    if (c >= 'A' && c <= 'Z') {
                         return super.contains(c) || stream().anyMatch(v -> v == c + 32);
                     }
 
-                    if (c > 65281 && c < 65374) { //忽略全半角
+                    if (c >= 65281 && c <= 65374) { //忽略全半角
                         return super.contains(c) || stream().anyMatch(v -> v == c - 65248);
                     }
 
-                    if (c > 33 && c < 126) {
+                    if (c >= 33 && c <= 126) {
                         return super.contains(c) || stream().anyMatch(v -> v == c + 65248);
                     }
                     return super.contains(c);
@@ -102,7 +102,7 @@ public class GameProgress {
     }
 
     public void lazyInit() {
-        int count = 5;
+        int count = 3;
         try {
             count = Config.INSTANCE.getQuestionCount();
         } catch (NoClassDefFoundError ignored) {
