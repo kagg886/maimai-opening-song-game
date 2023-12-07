@@ -29,7 +29,7 @@ public class SongManager {
     }
 
     public SongInfo findSongByName(String name) {
-        return allSongs.stream().filter(songInfo -> songInfo.getName().equals(name)).findFirst().orElse(null);
+        return allSongs.stream().filter(songInfo -> songInfo.getName().equalsIgnoreCase(name)).findFirst().orElse(null);
     }
 
     public List<SongInfo> findSongsByAlias(String alias) {
