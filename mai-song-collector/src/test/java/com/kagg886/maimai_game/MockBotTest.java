@@ -60,7 +60,7 @@ public class MockBotTest {
             Thread.sleep(1000);
 
             if (Math.random() > 0.5) {
-                member4.says("回答 " + infos.get(index++).getName());
+                member4.says("回答 " + infos.get(Math.min(infos.size()-1,index++)).getName());
             } else {
                 member4.says("回答 " + SongManager.getInstance().random(1).get(0).getName());
             }

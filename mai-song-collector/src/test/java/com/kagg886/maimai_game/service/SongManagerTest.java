@@ -5,6 +5,7 @@ import com.kagg886.util.IOUtil;
 import org.junit.jupiter.api.*;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -34,7 +35,9 @@ public class SongManagerTest {
     }
 
     @Test
-    void testRandom() {
+    void testRandom() throws IOException {
+        File base = new File("mai-data.json");
+        SongManager.getInstance().loadAllSongs(IOUtil.loadStringFromFile(base));
         List<SongInfo> infos = SongManager.getInstance().random(100);
         System.out.println(infos);
         for (int i = 0; i < infos.size() - 1; i++) {
